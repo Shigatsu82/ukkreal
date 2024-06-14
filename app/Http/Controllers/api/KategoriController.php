@@ -53,5 +53,28 @@ class KategoriController extends Controller
             return response()->json($data);
         }
     }
+    /**
+     * Update the specified resource in storage.
+     */
+    
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $kategori = Kategori::find($id);
+
+        if (!$kategori) {
+            return response()->json(['status' => 'Kategori tidak ditemukan'], 404);
+        }
+        
+        try {
+            $kategori->delete();
+            return response()->json(['status' => 'Kategori berhasil dihapus'], 200);
+        } catch (\Illuminate\Database\QueryException) {
+            // Tangkap pengecualian spesifik dari database (termasuk constraints foreign key)
+            return response()->json(['status' => 'Kategori tidak dapat dihapus'], 500);
+        }
+    }
 }
