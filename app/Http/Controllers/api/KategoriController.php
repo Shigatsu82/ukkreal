@@ -38,4 +38,20 @@ class KategoriController extends Controller
         return response()->json($databaru);
 
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {   
+        $kategori = Kategori::find($id);
+        
+        if(!$kategori){
+            return response()->json(['message' => 'Kategori tidak ditemukan'], 404);
+        }else{
+            $data=array("data"=>$kategori);
+            return response()->json($data);
+        }
+    }
+
 }
